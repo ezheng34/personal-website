@@ -1,10 +1,13 @@
 import React from "react";
 import CanvasBackground from "./CanvasBackground";
-import { Montserrat } from "next/font/google";
+import { Montserrat, Noto_Serif } from "next/font/google";
 
 const montserrat = Montserrat({
   weight: ["300", "400", "600"],
   subsets: ["latin"],
+});
+const serif = Noto_Serif({
+  weight: ["300", "400", "600"],
 });
 
 const HeroSection: React.FC = () => {
@@ -15,7 +18,7 @@ const HeroSection: React.FC = () => {
         <div className="absolute inset-0 flex flex-col items-center justify-center">
           <div className="mt-3 text-center backdrop-blur-sm">
             <h1
-              className={`${montserrat.className} mb-4 text-5xl font-normal tracking-wide`}
+              className={`${serif.className} mb-4 text-6xl font-normal tracking-wide`}
             >
               <a href="/">
                 <span className="font-semibold">Eric</span>
