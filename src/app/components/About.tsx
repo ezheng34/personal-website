@@ -1,21 +1,3 @@
-// import React from "react";
-// // import Image from "next/image";
-
-// const About = () => {
-//   return (
-//     <section className="text-white" id="about">
-//       <div className="md:grid md:grid-cols-2 gap-8 items-center py-8 px-4 xl:gap-16 sm:py-16 xl:px-16">
-//         <div>hi</div>
-//       </div>
-//     </section>
-//   );
-// };
-
-// export default About;
-
-// About.tsx
-// About.tsx
-// About.tsx
 "use client";
 import React from "react";
 import { useSpring, animated } from "react-spring";
@@ -46,7 +28,7 @@ const About: React.FC<AboutProps> = ({ isVisible }) => {
     >
       <div className="max-w-[800px] mx-auto text-white">
         <div className="md:grid md:grid-cols-2 gap-8 items-center py-8 px-4 xl:gap-16 sm:py-16 xl:px-16">
-          <div>About Content Here</div>
+          <div>About Content</div>
         </div>
       </div>
     </animated.section>

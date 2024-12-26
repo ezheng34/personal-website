@@ -20,10 +20,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   onNavigate,
   isHeroOpen,
 }) => {
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const springRef = useSpringRef();
   const textSpringRef = useSpringRef();
-  const navSpringRef = useSpringRef();
+  const borderSpringRef = useSpringRef();
   const titleSpringRef = useSpringRef();
 
   const props = useSpring({
@@ -48,19 +48,20 @@ const HeroSection: React.FC<HeroSectionProps> = ({
 
   const textStyle = useSpring({
     ref: textSpringRef,
-    from: { opacity: 1, height: "auto" },
+    from: { opacity: 1, height: "auto", marginBottom: "1rem" },
     to: {
       opacity: isHeroOpen ? 0 : 1,
       height: isHeroOpen ? 0 : "auto",
+      marginBottom: "0",
     },
     config: { duration: 200 },
   });
 
-  const navStyle = useSpring({
-    ref: navSpringRef,
+  const borderStyle = useSpring({
+    ref: borderSpringRef,
     from: { marginTop: "2.25rem" },
     to: {
-      marginTop: isHeroOpen ? "1rem" : "2.25rem",
+      marginTop: isHeroOpen ? "1.25rem" : "2.25rem",
     },
     config: { mass: 1, tension: 280, friction: 60 },
   });
@@ -76,8 +77,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({
 
   useChain(
     isHeroOpen
-      ? [textSpringRef, titleSpringRef, navSpringRef, springRef]
-      : [springRef, navSpringRef, titleSpringRef, textSpringRef],
+      ? [textSpringRef, titleSpringRef, borderSpringRef, springRef]
+      : [springRef, borderSpringRef, titleSpringRef, textSpringRef],
     [0, 0.2, 0.3, 0.4]
   );
 
@@ -92,13 +93,13 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   return (
     <animated.div
       ref={containerRef}
-      style={{ ...props, left: "50%" }}
+      style={{ ...props, left: "50%", zIndex: 10 }}
       className="fixed z-10"
     >
       <div className="hero-content">
         <animated.h1
           style={titleStyle}
-          className={`${serif.className} mb-4 font-normal tracking-wide`}
+          className={`${serif.className} font-normal tracking-wide`}
         >
           <a href="/">
             <span className="font-semibold">Eric</span>
@@ -113,16 +114,16 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             APPLIED MATH-COMPUTER SCIENCE @ BROWN UNIVERSITY
           </span>
         </animated.p>
-        <div className="mt-9 w-full border-t-2"></div>
-        <animated.nav style={navStyle} className="w-full">
+        <animated.div style={borderStyle} className="w-full border-t-2" />
+        <nav className="mt-5 w-full">
           <ul
-            className={`${montserrat.className} font-medium flex justify-between`}
+            className={`${montserrat.className} font-medium flex justify-between text-xl`}
           >
             <li>
               <a
                 href="#about"
                 onClick={(e) => handleNavClick(e, "about")}
-                className="ml-10"
+                className="ml-16"
               >
                 ABOUT
               </a>
@@ -144,13 +145,13 @@ const HeroSection: React.FC<HeroSectionProps> = ({
               <a
                 href="#contact"
                 onClick={(e) => handleNavClick(e, "contact")}
-                className="mr-10"
+                className="mr-16"
               >
                 CONTACT
               </a>
             </li>
           </ul>
-        </animated.nav>
+        </nav>
         <div className="mt-5 mb-2 w-full border-t-2"></div>
       </div>
     </animated.div>
