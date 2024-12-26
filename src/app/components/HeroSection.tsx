@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useSpring, animated, useSpringRef, useChain } from "react-spring";
 import { Montserrat, Noto_Serif } from "next/font/google";
 
@@ -20,6 +20,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   onNavigate,
   isHeroOpen,
 }) => {
+  const [activeSection, setActiveSection] = useState<string>("");
   const containerRef = useRef<HTMLDivElement>(null);
   const springRef = useSpringRef();
   const textSpringRef = useSpringRef();
@@ -48,11 +49,17 @@ const HeroSection: React.FC<HeroSectionProps> = ({
 
   const textStyle = useSpring({
     ref: textSpringRef,
-    from: { opacity: 1, height: "auto", marginBottom: "1rem" },
+    from: {
+      opacity: 1,
+      height: "auto",
+      marginBottom: "1rem",
+      marginTop: "1rem",
+    },
     to: {
       opacity: isHeroOpen ? 0 : 1,
       height: isHeroOpen ? 0 : "auto",
       marginBottom: "0",
+      marginTop: isHeroOpen ? "0" : "1rem",
     },
     config: { duration: 200 },
   });
@@ -87,6 +94,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
     section: string
   ) => {
     e.preventDefault();
+    setActiveSection(section);
     onNavigate(section);
   };
 
@@ -123,7 +131,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({
               <a
                 href="#about"
                 onClick={(e) => handleNavClick(e, "about")}
-                className="ml-16"
+                className={`ml-16 ${
+                  activeSection === "about" ? "underline" : ""
+                }`}
               >
                 ABOUT
               </a>
@@ -132,12 +142,17 @@ const HeroSection: React.FC<HeroSectionProps> = ({
               <a
                 href="#projects"
                 onClick={(e) => handleNavClick(e, "projects")}
+                className={`${activeSection === "projects" ? "underline" : ""}`}
               >
                 PROJECTS
               </a>
             </li>
             <li>
-              <a href="#resume" onClick={(e) => handleNavClick(e, "resume")}>
+              <a
+                href="#resume"
+                onClick={(e) => handleNavClick(e, "resume")}
+                className={`${activeSection === "resume" ? "underline" : ""}`}
+              >
                 RESUME
               </a>
             </li>
@@ -145,7 +160,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({
               <a
                 href="#contact"
                 onClick={(e) => handleNavClick(e, "contact")}
-                className="mr-16"
+                className={`mr-16 ${
+                  activeSection === "contact" ? "underline" : ""
+                }`}
               >
                 CONTACT
               </a>
