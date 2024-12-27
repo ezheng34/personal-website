@@ -102,7 +102,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
     <animated.div
       ref={containerRef}
       style={{ ...props, left: "50%", zIndex: 10 }}
-      className="fixed z-10"
+      className="absolute z-10"
     >
       <div className="hero-content">
         <animated.h1
