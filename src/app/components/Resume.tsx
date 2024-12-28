@@ -20,6 +20,7 @@ const Resume: React.FC<ResumeProps> = ({ isVisible }) => {
   });
 
   return (
+    // @ts-expect-error Type Error with animated section
     <animated.section
       style={props}
       className="absolute top-[200px] left-0 w-full min-h-screen"
@@ -28,7 +29,7 @@ const Resume: React.FC<ResumeProps> = ({ isVisible }) => {
       <div className="w-full h-screen px-8 xl:px-16">
         <br></br>
         <p className="text-center font-normal text-lg">
-          Here's a{" "}
+          Here&apos;s a{" "}
           <a
             href="https://drive.google.com/file/d/1fCr_PdJM9w5QYv8b47Yap7TeNxT_xIRN/view?usp=sharing"
             target="_blank"

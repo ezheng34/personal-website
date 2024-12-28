@@ -22,6 +22,7 @@ const About: React.FC<AboutProps> = ({ isVisible }) => {
   });
 
   return (
+    // @ts-expect-error Type Error with animated section
     <animated.section
       style={props}
       className="fixed top-[200px] left-0 w-full h-screen overflow-hidden"
@@ -46,7 +47,7 @@ const About: React.FC<AboutProps> = ({ isVisible }) => {
             I&apos;ve worked with Java, Python, JavaScript, TypeScript, React,
             SQL, Google Firebase and other developer tools. I&apos;ve been able
             to apply these skills during my internship at Kognitiv Edge making
-            React components for Microsoft Power Apps and I&apos;m excited to
+            React components for Microsoft Power Apps, and I&apos;m excited to
             see what I do next!
             <br></br>
             <br></br>

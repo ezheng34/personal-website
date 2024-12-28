@@ -1,6 +1,5 @@
 import React from "react";
 import { useSpring, animated } from "react-spring";
-import { AiOutlineMail } from "react-icons/ai";
 import { FaGithub } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import { BiLogoGmail } from "react-icons/bi";
@@ -25,6 +24,7 @@ const Contact: React.FC<ContactProps> = ({ isVisible }) => {
   });
 
   return (
+    // @ts-expect-error Type Error with animated section
     <animated.section
       style={props}
       className="absolute top-[200px] left-0 w-full min-h-screen"
@@ -37,8 +37,8 @@ const Contact: React.FC<ContactProps> = ({ isVisible }) => {
         </p>
         <br></br>
         <p className="text-center text-lg leading-relaxed">
-          I'm currently looking for Summer 2025 opportunities. Connect with me
-          on{" "}
+          I&apos;m currently looking for Summer 2025 opportunities. Connect with
+          me on{" "}
           <a
             href="https://www.linkedin.com/in/zheng-eric/"
             target="_blank"

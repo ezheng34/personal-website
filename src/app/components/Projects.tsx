@@ -4,10 +4,6 @@ import { useSpring, animated } from "react-spring";
 import Image from "next/image";
 import Link from "next/link";
 
-interface ProjectsProps {
-  isVisible: boolean;
-}
-
 interface ProjectData {
   title: string;
   description: string[];
@@ -17,6 +13,83 @@ interface ProjectData {
     text: string;
     link: string;
   }[];
+}
+
+interface ProjectCardProps {
+  project: ProjectData;
+  isVisible: boolean;
+  index: number;
+}
+
+const ProjectCard: React.FC<ProjectCardProps> = ({
+  project,
+  isVisible,
+  index,
+}) => {
+  const props = useSpring({
+    from: {
+      transform: "translateY(-20%)",
+      opacity: 0,
+    },
+    to: {
+      transform: isVisible ? "translateY(0%)" : "translateY(-20%)",
+      opacity: isVisible ? 1 : 0,
+    },
+    config: { mass: 1, tension: 280, friction: 60 },
+    delay: isVisible ? 400 + index * 200 : 0,
+  });
+
+  return (
+    // @ts-expect-error Type Error with animated div
+    <animated.div style={props}>
+      <div
+        className={`md:grid md:grid-cols-2 gap-5 items-center py-6 px-8 xl:gap-8 sm:py-16 xl:px-16 ${
+          index % 2 === 1 ? "md:flex-row-reverse" : ""
+        }`}
+      >
+        <div
+          className={`flex justify-center ${
+            index % 2 === 1 ? "md:order-2" : ""
+          }`}
+        >
+          <Image
+            src={project.image}
+            width={600}
+            height={600}
+            alt={project.imageAlt}
+            className="rounded-lg"
+          />
+        </div>
+        <div
+          className={`mt-4 md:mt-0 text-left flex flex-col ${
+            index % 2 === 1 ? "md:order-1" : ""
+          }`}
+        >
+          <h2 className="text-2xl font-bold mb-4">{project.title}</h2>
+          {project.description.map((paragraph, i) => (
+            <p key={i} className="font-normal text-basic md:text-lg mb-4">
+              {paragraph}
+            </p>
+          ))}
+          <div className="flex gap-4 mt-4">
+            {project.buttons.map((button) => (
+              <Link
+                key={button.text}
+                href={button.link}
+                className="px-6 py-3 rounded-lg bg-blue-500 text-white hover:bg-blue-600 transition-colors"
+              >
+                {button.text}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
+    </animated.div>
+  );
+};
+
+interface ProjectsProps {
+  isVisible: boolean;
 }
 
 const projectsData: ProjectData[] = [
@@ -94,71 +167,19 @@ const projectsData: ProjectData[] = [
 
 const Projects: React.FC<ProjectsProps> = ({ isVisible }) => {
   return (
+    // @ts-expect-error Type Error with animated div
     <animated.section
       className="absolute top-[200px] left-0 w-full min-h-screen"
       id="projects"
     >
-      {projectsData.map((project, index) => {
-        const props = useSpring({
-          from: {
-            transform: "translateY(-20%)",
-            opacity: 0,
-          },
-          to: {
-            transform: isVisible ? "translateY(0%)" : "translateY(-20%)",
-            opacity: isVisible ? 1 : 0,
-          },
-          config: { mass: 1, tension: 280, friction: 60 },
-          delay: isVisible ? 400 + index * 200 : 0,
-        });
-
-        return (
-          <animated.div key={project.title} style={props}>
-            <div
-              className={`md:grid md:grid-cols-2 gap-5 items-center py-6 px-8 xl:gap-8 sm:py-16 xl:px-16 ${
-                index % 2 === 1 ? "md:flex-row-reverse" : ""
-              }`}
-            >
-              <div
-                className={`flex justify-center ${
-                  index % 2 === 1 ? "md:order-2" : ""
-                }`}
-              >
-                <Image
-                  src={project.image}
-                  width={600}
-                  height={600}
-                  alt={project.imageAlt}
-                  className="rounded-lg"
-                />
-              </div>
-              <div
-                className={`mt-4 md:mt-0 text-left flex flex-col ${
-                  index % 2 === 1 ? "md:order-1" : ""
-                }`}
-              >
-                <h2 className="text-2xl font-bold mb-4">{project.title}</h2>
-                {project.description.map((paragraph, i) => (
-                  <p key={i} className="font-normal text-basic md:text-lg mb-4">
-                    {paragraph}
-                  </p>
-                ))}
-                <div className="flex gap-4 mt-4">
-                  {project.buttons.map((button) => (
-                    <Link
-                      key={button.text}
-                      href={button.link}
-                      className="px-6 py-3 rounded-lg bg-blue-500 text-white hover:bg-blue-600 transition-colors"
-                    >
-                      {button.text}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </animated.div>
-        );
-      })}
+      {projectsData.map((project, index) => (
+        <ProjectCard
+          key={project.title}
+          project={project}
+          isVisible={isVisible}
+          index={index}
+        />
+      ))}
     </animated.section>
   );
 };
