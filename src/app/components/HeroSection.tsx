@@ -2,6 +2,7 @@
 import React, { useRef, useState } from "react";
 import { useSpring, animated, useSpringRef, useChain } from "react-spring";
 import { Montserrat, Noto_Serif } from "next/font/google";
+import Link from "next/link";
 
 const montserrat = Montserrat({
   weight: ["300", "400", "600"],
@@ -9,6 +10,7 @@ const montserrat = Montserrat({
 });
 const serif = Noto_Serif({
   weight: ["300", "400", "600"],
+  subsets: ["latin"],
 });
 
 interface HeroSectionProps {
@@ -23,7 +25,6 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   const [activeSection, setActiveSection] = useState<string>("");
   const containerRef = useRef<HTMLDivElement>(null);
   const springRef = useSpringRef();
-  const textSpringRef = useSpringRef();
   const borderSpringRef = useSpringRef();
   const titleSpringRef = useSpringRef();
 
@@ -47,23 +48,6 @@ const HeroSection: React.FC<HeroSectionProps> = ({
     },
   });
 
-  const textStyle = useSpring({
-    ref: textSpringRef,
-    from: {
-      opacity: 1,
-      height: "auto",
-      marginBottom: "1rem",
-      marginTop: "1rem",
-    },
-    to: {
-      opacity: isHeroOpen ? 0 : 1,
-      height: isHeroOpen ? 0 : "auto",
-      marginBottom: "0",
-      marginTop: isHeroOpen ? "0" : "1rem",
-    },
-    config: { duration: 200 },
-  });
-
   const borderStyle = useSpring({
     ref: borderSpringRef,
     from: { marginTop: "2.25rem" },
@@ -84,9 +68,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({
 
   useChain(
     isHeroOpen
-      ? [textSpringRef, titleSpringRef, borderSpringRef, springRef]
-      : [springRef, borderSpringRef, titleSpringRef, textSpringRef],
-    [0, 0.2, 0.3, 0.4]
+      ? [titleSpringRef, borderSpringRef, springRef]
+      : [springRef, borderSpringRef, titleSpringRef],
+    [0, 0.2, 0.3]
   );
 
   const handleNavClick = (
@@ -98,30 +82,38 @@ const HeroSection: React.FC<HeroSectionProps> = ({
     onNavigate(section);
   };
 
+  const handleHomeClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    setActiveSection("");
+    onNavigate("hero");
+  };
+
   return (
+    // @ts-expect-error Type Error with animated div
     <animated.div
       ref={containerRef}
       style={{ ...props, left: "50%", zIndex: 10 }}
       className="absolute z-10"
     >
       <div className="hero-content">
+        {/* @ts-expect-error Type Error with animated h1 */}
         <animated.h1
           style={titleStyle}
           className={`${serif.className} font-normal tracking-wide`}
         >
-          <a href="/">
+          <Link href="/" onClick={handleHomeClick}>
             <span className="font-semibold">Eric</span>
             <span className="font-light">Zheng</span>
-          </a>
+          </Link>
         </animated.h1>
-        <animated.p
-          style={textStyle}
-          className={`${montserrat.className} text-sm tracking-widest overflow-hidden`}
+        <p
+          className={`${montserrat.className} text-sm tracking-widest mt-4 mb-4`}
         >
           <span className="font-normal">
-            APPLIED MATH-COMPUTER SCIENCE @ BROWN UNIVERSITY
+            APPLIED MATHEMATICS-COMPUTER SCIENCE @ BROWN UNIVERSITY
           </span>
-        </animated.p>
+        </p>
+        {/* @ts-expect-error Type Error with animated div */}
         <animated.div style={borderStyle} className="w-full border-t-2" />
         <nav className="mt-5 w-full">
           <ul

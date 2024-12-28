@@ -22,9 +22,10 @@ const About: React.FC<AboutProps> = ({ isVisible }) => {
   });
 
   return (
+    // @ts-expect-error Type Error with animated section
     <animated.section
       style={props}
-      className="absolute top-[200px] left-0 w-full min-h-screen"
+      className="fixed top-[200px] left-0 w-full h-screen overflow-hidden"
       id="about"
     >
       <div className="md:grid md:grid-cols-2 gap-5 items-center py-8 px-8 xl:gap-8 sm:py-16 xl:px-16">
@@ -43,10 +44,10 @@ const About: React.FC<AboutProps> = ({ isVisible }) => {
             Science.
             <br></br>
             <br></br>
-            I&apos;ve worked with Java, Python, JavaScript, Typescript, React,
+            I&apos;ve worked with Java, Python, JavaScript, TypeScript, React,
             SQL, Google Firebase and other developer tools. I&apos;ve been able
             to apply these skills during my internship at Kognitiv Edge making
-            React components for Microsoft Power Apps and I&apos;m excited to
+            React components for Microsoft Power Apps, and I&apos;m excited to
             see what I do next!
             <br></br>
             <br></br>
@@ -57,23 +58,6 @@ const About: React.FC<AboutProps> = ({ isVisible }) => {
             Thanks for visiting! 🌱
             <br></br>
             <br></br>
-            {/* Connect with me:&nbsp;
-            <button
-              className="h-10 w-10 bg-[url('/github-icon.svg')] bg-contain align-middle"
-              onClick={() =>
-                window.open("https://github.com/ezheng34", "_blank")
-              }
-            />
-            <button
-              className="h-10 w-10 bg-[url('/linkedin-icon.svg')] bg-cover align-middle"
-              onClick={() =>
-                window.open("https://www.linkedin.com/in/zheng-eric/", "_blank")
-              }
-            />
-            <button
-              className="h-10 w-10 bg-[url('/email-icon.svg')] bg-cover align-middle"
-              onClick={() => window.open("mailto:eric_zheng1@brown.edu")}
-            /> */}
           </div>
         </div>
       </div>
