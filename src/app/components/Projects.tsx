@@ -24,7 +24,7 @@ const projectsData: ProjectData[] = [
     title: "Bearly Used",
     description: [
       "Final Project made with three other students that provides a platform for Brown and RISD students to upload goods to sell/buy/trade with other students",
-      "Tech: React.js, Typescript, Java, CSS, PostgreSQL, Clerk Auth, Supabase, Playwright + JUnit Testing",
+      "Tech: React.js, TypeScript, Java, CSS, PostgreSQL, Bootstrap, Clerk Auth, Supabase, Playwright + JUnit Testing",
     ],
     image: "/images/projects/bearly_used.png",
     imageAlt: "Bearly Used Homepage",
@@ -40,7 +40,7 @@ const projectsData: ProjectData[] = [
     description: [
       "For Fullstack@Brown, I worked on the Research & Publications page for the revamped webpage for Dr. Elena Festa and Dr. William Heindel's lab.",
       "As a part of this, I participated in design talks and worked with a partner to implement the page from Lo-Fi to Hi-Fi.",
-      "Tech: React.js, Typescript, TailwindCSS, ComicCMS",
+      "Tech: React.js, TypeScript, TailwindCSS, ComicCMS",
     ],
     image: "/images/projects/aging_cog.png",
     imageAlt: "Aging and Cognition Lab Page",
@@ -60,7 +60,7 @@ const projectsData: ProjectData[] = [
     description: [
       "For Fullstack@Brown, I worked on the Home Page for the Dr. David Enrique Rangel's lab.",
       "The site contains preliminary information about the study, allows for families to toggle between English and Spanish webpages, and links to the qualtrics survey for the study.",
-      "Tech: React.js, next.js (Typescript), TailwindCSS",
+      "Tech: React.js, next.js (TypeScript), TailwindCSS",
     ],
     image: "/images/projects/rangel_research.png",
     imageAlt: "Rangel Research Team Page",
@@ -79,9 +79,9 @@ const projectsData: ProjectData[] = [
     title: "This Page!",
     description: [
       "This is the website you're looking at right now!",
-      "Tech: next.js (Typescript), TailwindCSS, Vercel",
+      "Tech: next.js (TypeScript), TailwindCSS, Vercel",
     ],
-    image: "/images/projects/about_page.png",
+    image: "/images/projects/personal_website.png",
     imageAlt: "About Page",
     buttons: [
       {

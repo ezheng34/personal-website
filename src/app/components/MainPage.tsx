@@ -1,9 +1,11 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 import HeroSection from "./HeroSection";
 import About from "./About";
 import Projects from "./Projects";
+import Resume from "./Resume";
+import Contact from "./Contact";
 import CanvasBackground from "./CanvasBackground";
 
 const MainPage: React.FC = () => {
@@ -11,12 +13,16 @@ const MainPage: React.FC = () => {
   const [isHeroOpen, setIsHeroOpen] = useState(false);
   const [isAboutVisible, setIsAboutVisible] = useState(false);
   const [isProjectsVisible, setIsProjectsVisible] = useState(false);
+  const [isResumeVisible, setIsResumeVisible] = useState(false);
+  const [isContactVisible, setIsContactVisible] = useState(false);
 
   const router = useRouter();
 
   const heroRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
   const projectsRef = useRef<HTMLDivElement>(null);
+  const resumeRef = useRef<HTMLDivElement>(null);
+  const contactRef = useRef<HTMLDivElement>(null);
 
   const handleNavigate = (section: string) => {
     setIsHeroOpen(true);
@@ -32,25 +38,12 @@ const MainPage: React.FC = () => {
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
-  };
-  // const handleNavigate = (section: string) => {
-  //   setCurrentSection(section);
-  //   setIsHeroOpen(section !== "hero");
 
-  //   // Update visibility states based on the section clicked
-  //   if (section === "about") {
-  //     setIsAboutVisible(true);
-  //     setIsProjectsVisible(false);
-  //     console.log(isAboutVisible);
-  //     console.log(isProjectsVisible);
-  //   } else if (section === "projects") {
-  //     setIsAboutVisible(false);
-  //     setIsProjectsVisible(true);
-  //   } else {
-  //     setIsAboutVisible(false);
-  //     setIsProjectsVisible(false);
-  //   }
-  // };
+    setIsAboutVisible(section === "about");
+    setIsProjectsVisible(section === "projects");
+    setIsResumeVisible(section === "resume");
+    setIsContactVisible(section === "contact");
+  };
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -58,8 +51,16 @@ const MainPage: React.FC = () => {
       if (hash) {
         setCurrentSection(hash);
         setIsHeroOpen(true);
+        setIsAboutVisible(hash === "about");
+        setIsProjectsVisible(hash === "projects");
+        setIsResumeVisible(hash === "resume");
+        setIsContactVisible(hash === "contact");
       } else {
         setCurrentSection("hero");
+        setIsAboutVisible(false);
+        setIsProjectsVisible(false);
+        setIsResumeVisible(false);
+        setIsContactVisible(false);
       }
     };
 
@@ -68,37 +69,39 @@ const MainPage: React.FC = () => {
     return () => window.removeEventListener("hashchange", handleHashChange);
   }, []);
 
-  useEffect(() => {
-    const checkSectionsVisibility = () => {
-      if (heroRef.current && aboutRef.current && projectsRef.current) {
-        const heroRect = heroRef.current.getBoundingClientRect();
-        const aboutRect = aboutRef.current.getBoundingClientRect();
-        const projectsRect = projectsRef.current.getBoundingClientRect();
-
-        setIsAboutVisible(aboutRect.top <= heroRect.bottom);
-        setIsProjectsVisible(projectsRect.top <= heroRect.bottom);
-      }
-    };
-
-    window.addEventListener("scroll", checkSectionsVisibility);
-    checkSectionsVisibility();
-
-    return () => window.removeEventListener("scroll", checkSectionsVisibility);
-  }, []);
-
   return (
     <div className="relative min-h-screen w-full overflow-x-hidden">
       <CanvasBackground />
       <div ref={heroRef} id="hero">
         <HeroSection onNavigate={handleNavigate} isHeroOpen={isHeroOpen} />
       </div>
-      <div ref={aboutRef} id="about">
-        <About isVisible={currentSection === "about" && isAboutVisible} />
+      <div
+        ref={aboutRef}
+        id="about"
+        style={{ display: isAboutVisible ? "block" : "none" }}
+      >
+        <About isVisible={isAboutVisible} />
       </div>
-      <div ref={projectsRef} id="projects">
-        <Projects
-          isVisible={currentSection === "projects" && isProjectsVisible}
-        />
+      <div
+        ref={projectsRef}
+        id="projects"
+        style={{ display: isProjectsVisible ? "block" : "none" }}
+      >
+        <Projects isVisible={isProjectsVisible} />
+      </div>
+      <div
+        ref={resumeRef}
+        id="resume"
+        style={{ display: isResumeVisible ? "block" : "none" }}
+      >
+        <Resume isVisible={isResumeVisible} />
+      </div>
+      <div
+        ref={contactRef}
+        id="contact"
+        style={{ display: isContactVisible ? "block" : "none" }}
+      >
+        <Contact isVisible={isContactVisible} />
       </div>
     </div>
   );
