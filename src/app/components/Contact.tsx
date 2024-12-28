@@ -32,6 +32,7 @@ const Contact: React.FC<ContactProps> = ({ isVisible }) => {
     >
       <div className="container mx-auto">
         <br></br>
+        <br></br>
         <p className="text-center text-2xl leading-relaxed">
           Thanks for visiting!
         </p>
