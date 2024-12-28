@@ -2,6 +2,7 @@
 import React, { useRef, useState } from "react";
 import { useSpring, animated, useSpringRef, useChain } from "react-spring";
 import { Montserrat, Noto_Serif } from "next/font/google";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 const montserrat = Montserrat({
@@ -23,10 +24,12 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   isHeroOpen,
 }) => {
   const [activeSection, setActiveSection] = useState<string>("");
+  const [isReversed, setIsReversed] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const springRef = useSpringRef();
   const borderSpringRef = useSpringRef();
   const titleSpringRef = useSpringRef();
+  const router = useRouter();
 
   const props = useSpring({
     ref: springRef,
@@ -36,13 +39,16 @@ const HeroSection: React.FC<HeroSectionProps> = ({
       width: "60%",
     },
     to: {
-      top: isHeroOpen ? "0%" : "50%",
-      transform: isHeroOpen ? "translate(-50%, 0%)" : "translate(-50%, -50%)",
-      width: isHeroOpen ? "100%" : "60%",
+      top: isHeroOpen && !isReversed ? "0%" : "50%",
+      transform:
+        isHeroOpen && !isReversed
+          ? "translate(-50%, 0%)"
+          : "translate(-50%, -50%)",
+      width: isHeroOpen && !isReversed ? "100%" : "60%",
     },
     config: { mass: 1, tension: 280, friction: 60 },
     onRest: () => {
-      if (isHeroOpen && containerRef.current) {
+      if (isHeroOpen && !isReversed && containerRef.current) {
         containerRef.current.style.width = "100%";
       }
     },
@@ -52,7 +58,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
     ref: borderSpringRef,
     from: { marginTop: "2.25rem" },
     to: {
-      marginTop: isHeroOpen ? "1.25rem" : "2.25rem",
+      marginTop: isHeroOpen && !isReversed ? "1.25rem" : "2.25rem",
     },
     config: { mass: 1, tension: 280, friction: 60 },
   });
@@ -61,13 +67,13 @@ const HeroSection: React.FC<HeroSectionProps> = ({
     ref: titleSpringRef,
     from: { fontSize: "3.75rem" },
     to: {
-      fontSize: isHeroOpen ? "2.5rem" : "3.75rem",
+      fontSize: isHeroOpen && !isReversed ? "2.5rem" : "3.75rem",
     },
     config: { mass: 1, tension: 280, friction: 60 },
   });
 
   useChain(
-    isHeroOpen
+    isHeroOpen && !isReversed
       ? [titleSpringRef, borderSpringRef, springRef]
       : [springRef, borderSpringRef, titleSpringRef],
     [0, 0.2, 0.3]
@@ -80,6 +86,15 @@ const HeroSection: React.FC<HeroSectionProps> = ({
     e.preventDefault();
     setActiveSection(section);
     onNavigate(section);
+    setIsReversed(false);
+  };
+
+  const toggleReverse = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    setIsReversed(!isReversed);
+    setActiveSection("");
+    onNavigate("hero");
+    router.push("/");
   };
 
   return (
@@ -95,11 +110,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           style={titleStyle}
           className={`${serif.className} font-normal tracking-wide`}
         >
-          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-          <a href="/">
+          <Link href="/" onClick={toggleReverse}>
             <span className="font-semibold">Eric</span>
             <span className="font-light">Zheng</span>
-          </a>
+          </Link>
         </animated.h1>
         <p
           className={`${montserrat.className} text-sm tracking-widest mt-4 mb-4`}
