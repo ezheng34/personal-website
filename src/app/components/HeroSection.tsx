@@ -82,12 +82,6 @@ const HeroSection: React.FC<HeroSectionProps> = ({
     onNavigate(section);
   };
 
-  const handleHomeClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    setActiveSection("");
-    onNavigate("hero");
-  };
-
   return (
     // @ts-expect-error Type Error with animated div
     <animated.div
@@ -101,10 +95,11 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           style={titleStyle}
           className={`${serif.className} font-normal tracking-wide`}
         >
-          <Link href="/" onClick={handleHomeClick}>
+          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+          <a href="/">
             <span className="font-semibold">Eric</span>
             <span className="font-light">Zheng</span>
-          </Link>
+          </a>
         </animated.h1>
         <p
           className={`${montserrat.className} text-sm tracking-widest mt-4 mb-4`}
