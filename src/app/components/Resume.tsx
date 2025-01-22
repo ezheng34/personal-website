@@ -32,7 +32,7 @@ const Resume: React.FC<ResumeProps> = ({ isVisible }) => {
         <p className="text-center font-normal text-lg">
           Here&apos;s a{" "}
           <a
-            href="https://drive.google.com/file/d/1J9CO2fx90DsaHLxXDF__pAiJg027OOfi/view?usp=sharing"
+            href="https://drive.google.com/file/d/13EPRTCsEjy3CUOJMREad521MYMX5WVEO/view?usp=sharing"
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-500 underline"
@@ -43,7 +43,7 @@ const Resume: React.FC<ResumeProps> = ({ isVisible }) => {
         </p>
         <br></br>
         <iframe
-          src="https://drive.google.com/file/d/1J9CO2fx90DsaHLxXDF__pAiJg027OOfi/preview"
+          src="https://drive.google.com/file/d/13EPRTCsEjy3CUOJMREad521MYMX5WVEO/preview"
           style={{
             width: "800px",
             height: "900px",
