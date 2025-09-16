@@ -38,7 +38,7 @@ const Contact: React.FC<ContactProps> = ({ isVisible }) => {
         </p>
         <br></br>
         <p className="text-center text-lg leading-relaxed">
-          I&apos;m currently looking for Summer 2025 opportunities. Connect with
+          I&apos;m currently looking for Summer 2026 opportunities. Connect with
           me on{" "}
           <a
             href="https://www.linkedin.com/in/zheng-eric/"
@@ -50,10 +50,10 @@ const Contact: React.FC<ContactProps> = ({ isVisible }) => {
           </a>{" "}
           or email me directly at{" "}
           <a
-            href="mailto:eric_zheng1@brown.edu"
+            href="mailto:erzheng37@gmail.com"
             className="text-blue-500 underline hover:text-blue-400"
           >
-            eric_zheng1@brown.edu
+            erzheng37@gmail.com
           </a>
           !
         </p>
@@ -77,7 +77,7 @@ const Contact: React.FC<ContactProps> = ({ isVisible }) => {
             <FaLinkedin className="h-full w-full bg-cover" />
           </a>
           <a
-            href="mailto:eric_zheng1@brown.edu"
+            href="mailto:erzheng37@gmail.com"
             rel="noreferrer"
             target="_blank"
             className="inline-block h-10 w-10 align-middle"
