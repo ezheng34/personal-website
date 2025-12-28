@@ -7,9 +7,10 @@ import Image from "next/image";
 
 interface ContactProps {
   isVisible: boolean;
+  isMenuExpanded?: boolean;
 }
 
-const Contact: React.FC<ContactProps> = ({ isVisible }) => {
+const Contact: React.FC<ContactProps> = ({ isVisible, isMenuExpanded = false }) => {
   const props = useSpring({
     from: {
       transform: "translateY(-20%)",
@@ -27,17 +28,19 @@ const Contact: React.FC<ContactProps> = ({ isVisible }) => {
     // @ts-expect-error Type Error with animated section
     <animated.section
       style={props}
-      className="absolute top-[200px] left-0 w-full min-h-screen"
+      className={`absolute left-0 w-full min-h-screen ${
+        isMenuExpanded ? "top-[400px]" : "top-[200px]"
+      }`}
       id="contact"
     >
-      <div className="container mx-auto">
+      <div className="container mx-auto px-4 md:px-8">
         <br></br>
         <br></br>
-        <p className="text-center text-2xl leading-relaxed">
+        <p className="text-center text-xl md:text-2xl leading-relaxed px-4">
           Thanks for visiting!
         </p>
         <br></br>
-        <p className="text-center text-lg leading-relaxed">
+        <p className="text-center text-sm md:text-base lg:text-lg leading-relaxed px-4">
           I&apos;m currently looking for Summer 2026 opportunities. Connect with
           me on{" "}
           <a
@@ -58,13 +61,13 @@ const Contact: React.FC<ContactProps> = ({ isVisible }) => {
           !
         </p>
         <br></br>
-        <p className="text-center text-lg">
+        <p className="text-center text-sm md:text-base lg:text-lg px-4">
           Find me here:&nbsp;
           <a
             href="https://github.com/ezheng34"
             rel="noreferrer"
             target="_blank"
-            className="inline-block h-10 w-10 align-middle"
+            className="inline-block h-8 w-8 md:h-10 md:w-10 align-middle mx-1"
           >
             <FaGithub className="h-full w-full bg-cover" />
           </a>
@@ -72,7 +75,7 @@ const Contact: React.FC<ContactProps> = ({ isVisible }) => {
             href="https://www.linkedin.com/in/zheng-eric/"
             rel="noreferrer"
             target="_blank"
-            className="inline-block h-10 w-10 align-middle"
+            className="inline-block h-8 w-8 md:h-10 md:w-10 align-middle mx-1"
           >
             <FaLinkedin className="h-full w-full bg-cover" />
           </a>
@@ -80,22 +83,22 @@ const Contact: React.FC<ContactProps> = ({ isVisible }) => {
             href="mailto:erzheng37@gmail.com"
             rel="noreferrer"
             target="_blank"
-            className="inline-block h-10 w-10 align-middle"
+            className="inline-block h-8 w-8 md:h-10 md:w-10 align-middle mx-1"
           >
             <BiLogoGmail className="h-full w-full bg-cover" />
           </a>
         </p>
         <br></br>
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center px-4">
           <Image
             src="/images/cat.jpg"
             width={600}
             height={600}
             alt="Mocha"
-            className="rounded-lg"
+            className="w-full max-w-md md:max-w-lg rounded-lg"
           />
         </div>
-        <p className="text-center">Mocha ☕️</p>
+        <p className="text-center mt-4">Mocha ☕️</p>
       </div>
     </animated.section>
   );

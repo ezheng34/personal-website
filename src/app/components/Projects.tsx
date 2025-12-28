@@ -43,7 +43,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     // @ts-expect-error Type Error with animated div
     <animated.div style={props}>
       <div
-        className={`md:grid md:grid-cols-2 gap-5 items-center py-6 px-8 xl:gap-8 sm:py-16 xl:px-16 ${
+        className={`md:grid md:grid-cols-2 gap-5 items-center py-6 px-4 md:px-8 xl:gap-8 sm:py-16 xl:px-16 ${
           index % 2 === 1 ? "md:flex-row-reverse" : ""
         }`}
       >
@@ -57,28 +57,33 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             width={600}
             height={600}
             alt={project.imageAlt}
-            className="rounded-lg"
+            className="w-full max-w-md md:max-w-none rounded-lg"
           />
         </div>
         <div
-          className={`mt-4 md:mt-0 text-left flex flex-col ${
+          className={`mt-4 md:mt-0 text-left flex flex-col px-2 md:px-0 ${
             index % 2 === 1 ? "md:order-1" : ""
           }`}
         >
-          <h2 className="text-2xl font-bold mb-4">{project.title}</h2>
+          <h2 className="text-xl md:text-2xl font-bold mb-4">
+            {project.title}
+          </h2>
           {project.description.map((paragraph, i) => (
-            <p key={i} className="font-normal text-basic md:text-lg mb-4">
+            <p
+              key={i}
+              className="font-normal text-sm md:text-base lg:text-lg mb-4"
+            >
               {paragraph}
             </p>
           ))}
-          <div className="flex gap-4 mt-4">
+          <div className="flex flex-wrap gap-4 mt-4">
             {project.buttons.map((button) => (
               <Link
                 key={button.text}
                 href={button.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 py-3 rounded-lg bg-blue-500 text-white hover:bg-blue-600 transition-colors"
+                className="px-4 md:px-6 py-2 md:py-3 rounded-lg bg-blue-500 text-white hover:bg-blue-600 transition-colors text-sm md:text-base"
               >
                 {button.text}
               </Link>
@@ -92,6 +97,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 
 interface ProjectsProps {
   isVisible: boolean;
+  isMenuExpanded?: boolean;
 }
 
 const projectsData: ProjectData[] = [
@@ -167,11 +173,16 @@ const projectsData: ProjectData[] = [
   },
 ];
 
-const Projects: React.FC<ProjectsProps> = ({ isVisible }) => {
+const Projects: React.FC<ProjectsProps> = ({
+  isVisible,
+  isMenuExpanded = false,
+}) => {
   return (
     // @ts-expect-error Type Error with animated div
     <animated.section
-      className="absolute top-[200px] left-0 w-full min-h-screen"
+      className={`absolute left-0 w-full min-h-screen ${
+        isMenuExpanded ? "top-[400px]" : "top-[200px]"
+      }`}
       id="projects"
     >
       {projectsData.map((project, index) => (

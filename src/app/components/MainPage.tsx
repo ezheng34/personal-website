@@ -15,6 +15,7 @@ const MainPage: React.FC = () => {
   const [isProjectsVisible, setIsProjectsVisible] = useState(false);
   const [isResumeVisible, setIsResumeVisible] = useState(false);
   const [isContactVisible, setIsContactVisible] = useState(false);
+  const [isMenuExpanded, setIsMenuExpanded] = useState(false);
 
   const router = useRouter();
 
@@ -73,35 +74,42 @@ const MainPage: React.FC = () => {
     <div className="relative min-h-screen w-full overflow-x-hidden">
       <CanvasBackground />
       <div ref={heroRef} id="hero">
-        <HeroSection onNavigate={handleNavigate} isHeroOpen={isHeroOpen} />
+        <HeroSection
+          onNavigate={handleNavigate}
+          isHeroOpen={isHeroOpen}
+          onMenuExpandedChange={setIsMenuExpanded}
+        />
       </div>
       <div
         ref={aboutRef}
         id="about"
         style={{ display: isAboutVisible ? "block" : "none" }}
       >
-        <About isVisible={isAboutVisible} />
+        <About isVisible={isAboutVisible} isMenuExpanded={isMenuExpanded} />
       </div>
       <div
         ref={projectsRef}
         id="projects"
         style={{ display: isProjectsVisible ? "block" : "none" }}
       >
-        <Projects isVisible={isProjectsVisible} />
+        <Projects
+          isVisible={isProjectsVisible}
+          isMenuExpanded={isMenuExpanded}
+        />
       </div>
       <div
         ref={resumeRef}
         id="resume"
         style={{ display: isResumeVisible ? "block" : "none" }}
       >
-        <Resume isVisible={isResumeVisible} />
+        <Resume isVisible={isResumeVisible} isMenuExpanded={isMenuExpanded} />
       </div>
       <div
         ref={contactRef}
         id="contact"
         style={{ display: isContactVisible ? "block" : "none" }}
       >
-        <Contact isVisible={isContactVisible} />
+        <Contact isVisible={isContactVisible} isMenuExpanded={isMenuExpanded} />
       </div>
     </div>
   );
