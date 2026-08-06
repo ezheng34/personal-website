@@ -38,7 +38,7 @@ const Resume: React.FC<ResumeProps> = ({
         <p className="text-center font-normal text-sm md:text-base lg:text-lg px-4">
           Here&apos;s a{" "}
           <a
-            href="https://drive.google.com/file/d/1CgFrx9In1U53o1mI9pGuHnU_yzwDOTAa/view?usp=sharing"
+            href="https://drive.google.com/file/d/1Vnv07BecmXhONcu4R1YVah3BLzrIHW2A/view?usp=sharing"
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-500 underline"
@@ -50,7 +50,7 @@ const Resume: React.FC<ResumeProps> = ({
         <br></br>
         <div className="w-full flex justify-center px-4">
           <iframe
-            src="https://drive.google.com/file/d/1CgFrx9In1U53o1mI9pGuHnU_yzwDOTAa/preview"
+            src="https://drive.google.com/file/d/1Vnv07BecmXhONcu4R1YVah3BLzrIHW2A/preview"
             className="w-full max-w-4xl border-none"
             style={{
               aspectRatio: "8.5 / 11",
